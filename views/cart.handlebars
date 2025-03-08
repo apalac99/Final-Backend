@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Carrito de Compras</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/realtimeproducts">Productos en Tiempo Real</a>
+            <a href="/products">Ver Productos</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Productos en el Carrito</h2>
+        <div class="cart-list">
+            {{#each cart.products}}
+                <div class="cart-item">
+                    <h3>{{this.product.title}}</h3>
+                    <p>Cantidad: {{this.quantity}}</p>
+                    <p>Precio: ${{this.product.price}}</p>
+                </div>
+            {{/each}}
+        </div>
+        <div class="total">
+            <h3>Total: ${{total}}</h3>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Jose Alejandro Palacios</p>
+    </footer>
+</body>
+</html>

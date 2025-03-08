@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos en Tiempo Real</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+        <h1>Entrega Final</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/realtimeproducts">Productos en Tiempo Real</a>
+            <a href="/products">Ver Productos</a>
+        </nav>
+    </header>
+  <h1>Productos en Tiempo Real</h1>
+
+  <!-- Formulario para agregar productos -->
+  <form id="addProductForm">
+    <input type="text" name="title" placeholder="Título" required>
+    <input type="text" name="description" placeholder="Descripción" required>
+    <input type="text" name="code" placeholder="Código" required>
+    <input type="number" name="price" placeholder="Precio" required>
+    <input type="number" name="stock" placeholder="Stock" required>
+    <input type="text" name="category" placeholder="Categoría" required>
+    <input type="text" name="thumbnails" placeholder="Thumbnails (separados por comas)">
+    <button type="submit">Agregar Producto</button>
+  </form>
+
+  <div id="productList">
+    {{#if products.length}}
+      {{#each products}}
+        <div class="product" data-id="{{this._id}}">
+          <h2>{{this.title}}</h2>
+          <p>Precio: ${{this.price}}</p>
+          <p>Stock: {{this.stock}}</p>
+        </div>
+      {{/each}}
+    {{else}}
+      <p>No hay productos disponibles.</p>
+    {{/if}}
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/realTimeProducts.js"></script>
+</body>
+</html>

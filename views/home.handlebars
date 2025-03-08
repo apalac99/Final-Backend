@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a la Tienda</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/realtimeproducts">Productos en Tiempo Real</a>
+            <a href="/products">Ver Productos</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Productos Disponibles</h2>
+        <div class="product-list">
+            {{#if products.length}}
+                {{#each products}}
+                    <div class="product">
+                        <h3>{{this.title}}</h3>
+                        <p>{{this.description}}</p>
+                        <p>Precio: ${{this.price}}</p>
+                        <p>Stock: {{this.stock}}</p>
+                        <a href="/api/products/{{this._id}}">Ver Detalles</a>
+                        <button onclick="addToCart('{{this._id}}')">Agregar al Carrito</button>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p>No hay productos disponibles.</p>
+            {{/if}}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Jose Alejandro Palacios</p>
+    </footer>
+
+    <script>
+        async function addToCart(productId) {
+            try {
+                const cartId = '{{defaultCartId}}'; // Usa el ID del carrito por defecto
+                const response = await fetch(`/api/carts/${cartId}/product/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    alert('Producto agregado al carrito');
+                } else {
+                    alert('Error al agregar el producto al carrito');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
